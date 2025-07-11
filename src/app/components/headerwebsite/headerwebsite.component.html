@@ -1,0 +1,20 @@
+<header class="bg-black border-b-2 border-[#88cc1c] sticky top-0 z-50 shadow-2xl">
+    <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between h-20">
+            <div class="h-full py-3">
+                <img routerLink="/" class="h-full object-contain cursor-pointer" src="tumbadologo.webp" alt="logo de la tienda tumbado store">
+            </div>
+            <div class="relative flex items-center gap-2">
+                <svg class="w-6 h-6 text-white/50 absolute left-2 top-1/2 -translate-y-1/2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+                <input class="w-full p-2 pl-9 border border-gray-300 rounded-md text-white" type="text" placeholder="Buscar">
+            </div>
+            <nav class="hidden lg:block">
+                <ul class="flex flex-col lg:flex-row items-center gap-6">
+                    <li><a class="text-white px-4 py-2 rounded-md hover:bg-[#452969] hover:text-[#88cc1c] font-bold transition-all duration-300 transform hover:scale-105" routerLinkActive="bg-[#88cc1c] text-black" routerLink="/" [routerLinkActiveOptions]="{ exact: true }" >Inicio</a></li>
+                    <li><a class="text-white px-4 py-2 rounded-md hover:bg-[#452969] hover:text-[#88cc1c] font-bold transition-all duration-300 transform hover:scale-105" routerLinkActive="bg-[#88cc1c] text-black" routerLink="catalogo" [routerLinkActiveOptions]="{ exact: true }" >Catalogo</a></li>
+                    <li><a class="text-white px-4 py-2 rounded-md hover:bg-[#452969] hover:text-[#88cc1c] font-bold transition-all duration-300 transform hover:scale-105" routerLinkActive="bg-[#88cc1c] text-black" routerLink="login" [routerLinkActiveOptions]="{ exact: true }" >Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>

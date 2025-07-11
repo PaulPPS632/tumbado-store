@@ -1,0 +1,71 @@
+<div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group border border-gray-200 cursor-pointer">
+    <div class="relative overflow-hidden">
+      <img 
+        [src]=producto().imagen
+        [alt]=producto().nombre
+        class="w-full h-64 object-cover transition-all duration-500"
+      />
+  
+      <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+  
+      @if (producto().isdescuento == 1) {
+        <div class="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold animate-pulse shadow-lg">
+          REBAJA
+        </div>
+      }
+  
+      @if (producto().stock <= 5 && producto().stock > 0) {
+        <div class="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold animate-pulse shadow-lg">
+          ÚLTIMAS {{producto().stock}}
+        </div>
+      }
+  
+      @if(producto().stock === 0){
+        <div class="absolute top-4 right-4 bg-gray-800 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+          SIN STOCK
+        </div>
+      }
+    </div> <!-- ← este es el correcto cierre del contenedor de imagen -->
+    
+    <div class="p-6">
+      <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-[#88cc1c] transition-colors duration-300 line-clamp-2">
+        {{producto().nombre}}
+      </h3>
+  
+      @if(producto().marca){
+        <p class="text-sm text-gray-500 mb-2 font-medium">{{producto().marca.nombre}}</p>
+      }
+  
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex flex-col">
+          <div class="flex items-center gap-2">
+            <span class="text-3xl font-black text-[#452969] group-hover:scale-110 transition-transform duration-300">
+              S/. {{producto().precio}}
+            </span>
+  
+            @if(producto().isdescuento == 1 && producto().precio_anterior){
+              <span class="text-lg text-gray-500 line-through">
+                S/. {{producto().precio_anterior}}
+              </span>
+            }
+          </div>
+  
+          @if(producto().isdescuento == 1 && producto().precio_anterior){
+            <span class="text-sm text-red-600 font-bold">
+              Ahorra S/. {{producto().precio_anterior - producto().precio}}
+            </span>
+          }
+        </div>
+  
+        <div class="text-right">
+          <span class="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full font-medium">
+            Stock: {{producto().stock}}
+          </span>
+          <div class="text-xs text-gray-400 mt-1 capitalize">
+            {{producto().nombre}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
