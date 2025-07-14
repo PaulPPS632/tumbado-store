@@ -1,1 +1,20 @@
-<p>login works!</p>
+<div class="h-[calc(100vh-5rem)] flex items-center justify-center">
+    <div class="bg-white p-6 rounded-lg shadow-md w-full md:w-96">
+        <div class="flex justify-center mb-6">
+            <img src="tumbadologo.webp" alt="Tumbado Store" class="w-full object-contain">
+        </div>
+        <div class="space-y-4">
+            <div>
+                <label for="email" class="block text-gray-700 font-medium mb-2">Correo Electrónico</label>
+                <input type="email" id="email" name="email" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600" placeholder="Ingrese su correo electrónico">
+            </div>
+            <div>
+                <label for="password" class="block text-gray-700 font-medium mb-2">Contraseña</label>
+                <input type="password" id="password" name="password" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600" placeholder="Ingrese su contraseña">
+            </div>
+            <button class="w-full bg-green-600 text-white p-2 rounded-md hover:bg-green-700 transition-colors duration-200"
+            (click)="login()">
+            Iniciar Sesión</button>
+        </div>
+    </div>
+</div>

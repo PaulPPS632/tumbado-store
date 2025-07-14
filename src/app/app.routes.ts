@@ -20,6 +20,10 @@ export const routes: Routes = [
             {
                 path: 'login',
                 loadComponent: () => import('./pages/website/login/login.component').then((m) => m.LoginComponent),
+            },
+            {
+                path: 'producto/:id',
+                loadComponent: () => import('./pages/website/productodetail/productodetail.component').then((m) => m.ProductodetailComponent),
             }
         ]
     },
@@ -32,12 +36,28 @@ export const routes: Routes = [
                 loadComponent: () => import('./pages/admin/dashboard/dashboard.component').then((m) => m.DashboardComponent),
             },
             {
+                path: 'inventario',
+                loadComponent: () => import('./pages/admin/inventario/inventario.component').then((m) => m.InventarioComponent),
+            },
+            {
+                path: 'inventario/nuevo',
+                loadComponent: () => import('./pages/admin/create-product/create-product.component').then((m) => m.CreateProductComponent),
+            },
+            {
+                path: 'inventario/:id',
+                loadComponent: () => import('./pages/admin/producto-detail-admin/producto-detail-admin.component').then((m) => m.ProductoDetailAdminComponent),
+            },
+            {
                 path: 'usuarios',
                 loadComponent: () => import('./pages/admin/usuarios/usuarios.component').then((m) => m.UsuariosComponent),
             },
             {
                 path: 'categorias',
                 loadComponent: () => import('./pages/admin/categorias/categorias.component').then((m) => m.CategoriasComponent),
+            },
+            {
+                path: 'reportes',
+                loadComponent: () => import('./pages/admin/reportes/reportes.component').then((m) => m.ReportesComponent),
             }
         ]
     }

@@ -1,0 +1,92 @@
+<article class="container mx-auto px-4 py-6 max-w-4xl bg-white rounded-lg shadow-md">
+    <!-- Back Button -->
+    <a href="#" class="text-purple-600 hover:text-purple-800 mb-4 inline-flex items-center">
+      <svg class="w-5 h-5 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
+      </svg>
+      Volver
+    </a>
+  
+    <!-- Product Content -->
+    <div class="flex flex-col md:flex-row gap-6">
+      <!-- Image Section -->
+      <div class="w-full md:w-1/2">
+        <img class="w-full rounded-lg shadow-md" [src]="imagen() || 'https://via.placeholder.com/400'" alt="Producto" />
+        <!-- Thumbnail Carousel -->
+        <div class="flex gap-2 mt-4">
+          @for (url of producto()?.imagenes; track $index) {
+            <img class="w-16 h-16 object-cover rounded cursor-pointer hover:opacity-75 transition-opacity"
+                 [src]="url"
+                 alt="Thumbnail"
+                 (click)="changeimage(url)"
+                 [ngClass]="{'border-2 border-purple-600': imagen() === url}" />
+          }
+        </div>
+      </div>    
+  
+      <!-- Product Details Section -->
+      <div class="w-full md:w-1/2">
+        <h1 class="text-3xl font-bold text-gray-900">{{ producto()?.nombre || 'Producto' }}</h1>
+        <div class="text-2xl text-[#452969] mt-2 font-extrabold">
+          {{ producto()?.precio | currency:'S/. ' }} 
+          @if (producto()?.isdescuento && producto()?.precio_anterior) {
+            <span class="text-gray-500 line-through">
+              {{ producto()?.precio_anterior | currency:'S/. ' }}
+            </span>
+          }
+        </div>
+        <p class="text-gray-600 mt-2">{{ producto()?.descripcion || 'Descripción no disponible' }}</p>
+  
+        <!-- Size Selection -->
+        <div class="mt-4">
+          <p class="font-medium text-gray-700">Selecciona tu talla:</p>
+          <div class="flex gap-2 mt-2">
+            @for (talla of producto()?.tallas; track talla.id) {
+              <button class="px-4 py-2 bg-gray-100 rounded border-1 border-gray-300 hover:border-purple-600 focus:outline-none"
+                      [ngClass]="{'bg-purple-100 border-purple-600': selectedSize() === talla.valor}"
+                      (click)="selectSize(talla.valor)">
+                {{ talla.valor }}
+              </button>
+            }
+          </div>
+        </div>
+  
+        <!-- Stock -->
+        <p class="mt-4  font-medium">
+            <span class="text-gray-700">Stock disponible:</span>
+            <span class="font-bold text-green-700">{{ producto()?.stock || 0 }} unidades</span> 
+        </p>
+  
+        <!-- Buy Button and Social Icons -->
+        <div class="mt-4 flex gap-2">
+          <a href="https://wa.me/51902818255?text=Hola, me gustaria comprar el producto {{ producto()?.nombre }} a {{ producto()?.precio }} {{ selectedSize() ? 'de la talla ' + selectedSize() : '' }}" target="_blank" class="font-medium bg-[#88cc1c] text-black px-6 py-2 rounded-lg hover:bg-black hover:text-white transition-colors flex-1 text-center">
+            COMPRAR POR WHATSAPP
+          </a>
+          <button class="bg-gray-100 p-2 rounded-lg hover:bg-gray-200">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </button>
+          <button class="bg-gray-100 p-2 rounded-lg hover:bg-gray-200">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+            </svg>
+          </button>
+        </div>
+  
+        <!-- Characteristics -->
+        <div class="mt-6">
+          <p class="font-medium text-gray-700">Características:</p>
+          <!--
+          <ul class="mt-2 space-y-1 text-green-600 list-disc list-inside">
+            <li>Material sintético de alta calidad</li>
+            <li>Suela antideslizante</li>
+            <li>Diseño exclusivo Tumbado Store</li>
+            <li>Comodidad extrema</li>
+            <li>Resistente al desgaste</li>
+          </ul>
+          -->
+        </div>
+      </div>
+    </div>
+  </article>

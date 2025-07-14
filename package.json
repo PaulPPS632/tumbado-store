@@ -3,13 +3,14 @@
 	"version": "0.0.0",
 	"scripts": {
 		"ng": "ng",
-		"start": "npm run build && wrangler dev",
+		"start": "npm run build && wrangler dev --port 4200",
 		"build": "ng build",
 		"watch": "ng build --watch --configuration development",
 		"test": "ng test",
 		"serve:ssr:tumbado-store": "node dist/tumbado-store/server/server.mjs",
 		"deploy": "npm run build && wrangler deploy",
-		"cf-typegen": "wrangler types"
+		"cf-typegen": "wrangler types",
+		"dev": "concurrently -k -n \"BUILD,WAIT,WRANGLER\" -c \"yellow,gray,cyan\" \"npm:watch\" \"wait-on dist/tumbado-store/server/server.mjs\" \"wrangler dev --port 4200\""
 	},
 	"private": true,
 	"dependencies": {
@@ -35,6 +36,7 @@
 		"@angular/compiler-cli": "^19.2.0",
 		"@types/jasmine": "~5.1.0",
 		"@types/node": "^18.18.0",
+		"concurrently": "^9.2.0",
 		"jasmine-core": "~5.6.0",
 		"karma": "~6.4.0",
 		"karma-chrome-launcher": "~3.2.0",
@@ -42,6 +44,7 @@
 		"karma-jasmine": "~5.1.0",
 		"karma-jasmine-html-reporter": "~2.1.0",
 		"typescript": "~5.7.2",
+		"wait-on": "^8.0.3",
 		"wrangler": "^4.24.3",
 		"xhr2": "^0.2.1"
 	}

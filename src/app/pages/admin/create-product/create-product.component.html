@@ -1,0 +1,265 @@
+<div class="w-full min-h-screen bg-gray-100 mt-4 sm:p-6">
+    <div class="max-w-3xl mx-auto">
+      <!-- Header -->
+      <h1 class="text-2xl font-bold text-gray-800 mb-6">Crear Nuevo Producto</h1>
+  
+      <!-- Form -->
+      <form #createForm="ngForm" (ngSubmit)="onSubmit()" class="bg-white py-4 px-3 rounded-lg shadow-md">
+        <!-- General Information -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label for="nombre" class="block text-gray-700 font-medium mb-1">Nombre *</label>
+            <input
+              id="nombre"
+              name="nombre"
+              [(ngModel)]="producto.nombre"
+              required
+              class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+              placeholder="Ej. Zapatillas Samba"
+            />
+          </div>
+          <div>
+            <label for="descripcion" class="block text-gray-700 font-medium mb-1">Descripción *</label>
+            <textarea
+              id="descripcion"
+              name="descripcion"
+              [(ngModel)]="producto.descripcion"
+              required
+              class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+              placeholder="Descripción del producto"
+            ></textarea>
+          </div>
+        </div>
+  
+        <!-- Pricing and Stock -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+          <div>
+            <label for="precio" class="block text-gray-700 font-medium mb-1">Precio *</label>
+            <input
+              id="precio"
+              name="precio"
+              type="number"
+              [(ngModel)]="producto.precio"
+              required
+              min="0"
+              step="0.01"
+              class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+              placeholder="Ej. 100.00"
+            />
+          </div>
+          <div>
+            <label for="precio_anterior" class="block text-gray-700 font-medium mb-1">Precio Anterior</label>
+            <input
+              id="precio_anterior"
+              name="precio_anterior"
+              type="number"
+              [(ngModel)]="producto.precio_anterior"
+              min="0"
+              step="0.01"
+              class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+              placeholder="Ej. 120.00"
+            />
+          </div>
+          <div>
+            <label for="isdescuento" class="block text-gray-700 font-medium mb-1">¿Tiene Descuento? *</label>
+            <select
+              id="isdescuento"
+              name="isdescuento"
+              [(ngModel)]="producto.isdescuento"
+              required
+              class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+            >
+              <option value="0">No</option>
+              <option value="1">Sí</option>
+            </select>
+          </div>
+        </div>
+  
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          <div>
+            <label for="descuento" class="block text-gray-700 font-medium mb-1">Descuento (%)</label>
+            <input
+              id="descuento"
+              name="descuento"
+              type="number"
+              [(ngModel)]="producto.descuento"
+              min="0"
+              max="100"
+              class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+              placeholder="Ej. 20"
+            />
+          </div>
+          <div>
+            <label for="stock" class="block text-gray-700 font-medium mb-1">Stock *</label>
+            <input
+              id="stock"
+              name="stock"
+              type="number"
+              [(ngModel)]="producto.stock"
+              required
+              min="0"
+              class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+              placeholder="Ej. 50"
+            />
+          </div>
+        </div>
+  
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          <div>
+            <label for="stock_minimo" class="block text-gray-700 font-medium mb-1">Stock Mínimo *</label>
+            <input
+              id="stock_minimo"
+              name="stock_minimo"
+              type="number"
+              [(ngModel)]="producto.stock_minimo"
+              required
+              min="0"
+              class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+              placeholder="Ej. 10"
+            />
+          </div>
+          <div>
+            <label for="imagen" class="block text-gray-700 font-medium mb-1">Imagen Principal</label>
+            <input
+              id="imagen"
+              name="imagen"
+              type="text"
+              [(ngModel)]="producto.imagen"
+              class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+              placeholder="URL de la imagen"
+            />
+          </div>
+        </div>
+  
+        <!-- Categories and Relations -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          <div>
+            <label for="categoria_id" class="block text-gray-700 font-medium mb-1">Categoría *</label>
+            <select
+              id="categoria_id"
+              name="categoria_id"
+              [(ngModel)]="producto.categoria_id"
+              required
+              class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+            >
+              @for (cat of categorias; track cat.id) {
+                <option [value]="cat.id">{{ cat.nombre }}</option>
+              }
+            </select>
+          </div>
+          <div>
+            <label for="sexo_id" class="block text-gray-700 font-medium mb-1">Sexo *</label>
+            <select
+              id="sexo_id"
+              name="sexo_id"
+              [(ngModel)]="producto.sexo_id"
+              required
+              class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+            >
+              @for (sex of sexos; track sex.id) {
+                <option [value]="sex.id">{{ sex.nombre }}</option>
+              }
+            </select>
+          </div>
+        </div>
+  
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          <div>
+            <label for="marca_id" class="block text-gray-700 font-medium mb-1">Marca *</label>
+            <select
+              id="marca_id"
+              name="marca_id"
+              [(ngModel)]="producto.marca_id"
+              required
+              class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+            >
+              @for (brand of marcas; track brand.id) {
+                <option [value]="brand.id">{{ brand.nombre }}</option>
+              }
+            </select>
+          </div>
+          <div>
+            <label for="tipo_id" class="block text-gray-700 font-medium mb-1">Tipo *</label>
+            <select
+              id="tipo_id"
+              name="tipo_id"
+              [(ngModel)]="producto.tipo_id"
+              required
+              class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+            >
+              @for (type of tipos; track type.id) {
+                <option [value]="type.id">{{ type.nombre }}</option>
+              }
+            </select>
+          </div>
+        </div>
+  
+        <!-- Tallas -->
+        <div class="mt-6">
+          <label class="block text-gray-700 font-medium mb-2">Tallas</label>
+          <div class="space-y-4" formArrayName="tallas">
+            @for (talla of producto.tallas; let i = $index; track i) {
+              <div class="flex gap-2">
+                <input
+                  [name]="'tallas[' + i + '].valor'"
+                  [(ngModel)]="producto.tallas[i].valor"
+                  placeholder="Talla (ej. 40)"
+                  class="w-1/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+                />
+                <input
+                  [name]="'tallas[' + i + '].tipo'"
+                  [(ngModel)]="producto.tallas[i].tipo"
+                  placeholder="Tipo (ej. calzado)"
+                  class="w-1/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+                />
+                <button
+                  type="button"
+                  (click)="removeTalla(i)"
+                  class="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            }
+            <button
+              type="button"
+              (click)="addTalla()"
+              class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 mt-2"
+            >
+              Agregar Talla
+            </button>
+          </div>
+        </div>
+  
+        <!-- Imagenes -->
+        <div class="mt-6">
+          <label class="block text-gray-700 font-medium mb-2">Imágenes Adicionales</label>
+          <input
+            type="file"
+            (change)="onImageChange($event)"
+            multiple
+            accept="image/*"
+            class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+          />
+          <div class="flex flex-wrap gap-2 mt-2">
+            @for (img of producto.imagenes; track img) {
+              <img [src]="img" alt="Imagen" class="w-20 h-20 object-cover rounded-md" />
+            }
+          </div>
+        </div>
+  
+        <!-- Submit Button -->
+        <div class="mt-6 text-right">
+          <button
+            type="submit"
+            [disabled]="!createForm.valid"
+            class="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition-colors"
+          >
+            Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+</div>

@@ -1,9 +1,10 @@
 import { Component, input } from '@angular/core';
 import { ProductoWithContent } from '../../interfaces/types';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cardproducto',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './cardproducto.component.html',
   styleUrl: './cardproducto.component.css'
 })

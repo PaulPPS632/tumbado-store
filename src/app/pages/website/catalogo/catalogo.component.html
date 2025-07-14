@@ -1,1 +1,148 @@
-<p>catalogo works!</p>
+<div class="flex flex-col lg:flex-row min-h-screen bg-gray-50">
+    <!-- Sidebar Filters -->
+    <aside class="w-full lg:w-1/4 bg-white p-6 shadow-md">
+      <h2 class="text-lg font-bold text-green-600 mb-4">FILTROS</h2>
+      <div class="space-y-2">
+        <!-- Search Input -->
+        <div class="flex items-end justify-between gap-2">
+            <div class="w-full">
+                <label class="block text-gray-700 font-medium mb-2">Buscar</label>
+                <input
+                    #searchInput
+                    (keyup.enter)="applyFilters()"
+                    class="w-full p-2 border border-gray-300 rounded-md bg-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-600"
+                    type="text"
+                    placeholder="Buscar productos o ..."
+                    [(ngModel)]="searchParams.search"
+                    aria-label="Buscar productos"
+                />
+            </div>
+            <button
+                (click)="resetFilters()"
+                class="w-fit mb-3 hover:text-purple-700 transition-transform duration-200 cursor-pointer"
+                aria-label="Limpiar filtros"
+            >
+                <!--Icono de filtro-->
+                @if(searchParams.search || searchParams.categoria_id || searchParams.sexo_id || searchParams.marca_id || searchParams.tipo_id){
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.531 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14v6a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341l.427-.473"/><path d="m16.5 3.5 5 5"/><path d="m21.5 3.5-5 5"/></svg>
+                }@else{
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"/></svg>                
+                }
+            </button>
+        </div>
+        <!-- Category Filter -->
+        <div>
+          <button class="flex items-center justify-between w-full text-gray-700 hover:text-[#88cc1c] hover:bg-gray-50 transition-all duration-200 rounded-md py-2 px-4 font-medium cursor-pointer"
+            (click)="toggleCategoryFilter()"
+            [ngClass]="{'text-lime-500': showCategoryFilter}"
+          >
+            <span class="font-extrabold">Categoría</span>
+            <svg class="w-5 h-5 ml-1 transition-all duration-200"
+              [ngClass]="{'rotate-180': showCategoryFilter}"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          @if (showCategoryFilter) {
+            <ul class="ml-4 space-y-1">
+              @for (item of categorias; track $index) {
+                <li>
+                    <button (click)="updateFilter('categoria_id', item.id)" 
+                    class="w-full text-left p-2 text-gray-500 hover:bg-gray-50 hover:text-[#452969] rounded-md font-bold transition-all cursor-pointer"
+                    [ngClass]="{'text-purple-700': item.id === searchParams.categoria_id}"
+                    >
+                    {{item.nombre}}
+                    </button>
+                </li>
+              }
+            </ul>
+          }
+        </div>
+        <!-- Sex Filter -->
+        <div>
+          <button class="flex items-center justify-between w-full text-gray-700 hover:text-[#88cc1c] hover:bg-gray-50 transition-all duration-200 rounded-md py-2 px-4 font-medium cursor-pointer"
+            (click)="toggleSexFilter()"
+            [ngClass]="{'text-lime-500': showSexFilter}"
+          >
+            <span class="font-extrabold">Género</span>
+            <svg class="w-5 h-5 ml-1 transition-all duration-200"
+              [ngClass]="{'rotate-180': showSexFilter}"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          @if (showSexFilter) {
+            <ul class="ml-4 space-y-1">
+              @for (item of sexos; track $index) {
+                <li>
+                    <button (click)="updateFilter('sexo_id', item.id)" 
+                    class="w-full text-left p-2 text-gray-500 hover:bg-gray-50 hover:text-[#452969] rounded-md font-bold transition-all cursor-pointer"
+                    [ngClass]="{'text-purple-700': item.id === searchParams.sexo_id}">
+                    {{item.nombre}}
+                    </button>
+                </li>
+              }
+            </ul>
+          }
+        </div>
+        <!-- Brand Filter -->
+        <div>
+          <button class="flex items-center justify-between w-full text-gray-700 hover:text-[#88cc1c] hover:bg-gray-50 transition-all duration-200 rounded-md py-2 px-4 font-medium cursor-pointer"
+          (click)="toggleBrandFilter()"
+            [ngClass]="{'text-lime-500': showBrandFilter}"
+          >
+            <span class="font-extrabold">Marca</span>
+            <svg class="w-5 h-5 ml-1 transition-all duration-200"
+              [ngClass]="{'rotate-180': showBrandFilter}"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          @if (showBrandFilter) {
+            <ul class="ml-4 space-y-1">
+              @for (item of marcas; track $index) {
+                <li>
+                    <button (click)="updateFilter('marca_id', item.id)" 
+                    class="w-full text-left p-2 text-gray-500 hover:bg-gray-50 hover:text-[#452969] rounded-md font-bold transition-all cursor-pointer"
+                    [ngClass]="{'text-purple-700': item.id === searchParams.marca_id}">
+                    {{item.nombre}}
+                    </button>
+                </li>
+              }
+            </ul>
+          }
+        </div>
+        <!-- Type Filter -->
+        <div>
+          <button class="flex items-center justify-between w-full text-gray-700 hover:text-[#88cc1c] hover:bg-gray-50 transition-all duration-200 rounded-md py-2 px-4 font-medium cursor-pointer"
+            (click)="toggleTypeFilter()"
+            [ngClass]="{'text-lime-500': showTypeFilter}"
+          >
+            <span class="font-extrabold">Tipo</span>
+            <svg class="w-5 h-5 ml-1 transition-all duration-200"
+              [ngClass]="{'rotate-180': showTypeFilter}"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          @if (showTypeFilter) {
+            <ul class="ml-4 space-y-1">
+              @for (item of tipos; track $index) {
+                <li>
+                    <button (click)="updateFilter('tipo_id', item.id)" 
+                    class="w-full text-left p-2 text-gray-500 hover:bg-gray-50 hover:text-[#452969] rounded-md font-bold transition-all cursor-pointer"
+                    [ngClass]="{'text-purple-700': item.id === searchParams.tipo_id}">
+                    {{item.nombre}}
+                    </button>
+                </li>
+              }
+            </ul>
+          }
+        </div>
+      </div>
+    </aside>
+  
+    <!-- Main Content -->
+    <main class="flex-1 p-6">
+      <div class="flex justify-between items-center mb-4">
+        <p class="text-gray-600">{{ products.length }} productos encontrados</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        @for (product of products; track product.id) {
+          <app-cardproducto [producto]="product"></app-cardproducto>
+        }
+      </div>
+    </main>
+  </div>

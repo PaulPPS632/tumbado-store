@@ -2,6 +2,7 @@
 export interface Producto{
     id: number;
     nombre: string;
+    descripcion: string;
     precio_anterior: number;
     precio: number;
     isdescuento: number;
@@ -20,6 +21,7 @@ export interface Producto{
 export interface ProductoWithContent {
   id: number;
   nombre: string;
+  descripcion: string;
   precio_anterior: number;
   precio: number;
   isdescuento: number;
@@ -37,7 +39,14 @@ export interface ProductoWithContent {
   sexo: Sexo;
   marca: Marca;
   tipo: Tipo;
-  imagenes: any[];
+  tallas: Talla[];
+  imagenes: string[];
+}
+
+export interface Talla {
+  id: number;
+  valor: string;
+  tipo: string;
 }
 
 export interface Categoria {
@@ -51,7 +60,7 @@ export interface Sexo {
   id: number;
   nombre: string;
   activo: number;
-  created_at: string;
+  created_at?: string;
 }
 
 export interface Marca {
@@ -66,4 +75,12 @@ export interface Tipo {
   nombre: string;
   activo: number;
   created_at: string;
+}
+
+export interface Search {
+  search: string;
+  categoria_id?: number;
+  sexo_id?: number;
+  marca_id?: number;
+  tipo_id?: number;
 }
